@@ -11,7 +11,7 @@
 2. Taking into consideration we have no negative edges (otherwise aka non-profit exchanges) i propose to run per-exchange rate single source Dijkstra's alg. Dijkstra's single source complexity (edge-weighted digraphs with nonnegative weights) is ***O(E*log(V))*** worst case compared to Floyd-Warshall ***O(V^3)***.
 Dijkstra's alg implementation is based on Java OOP-style [Algorithms, 4th Edition by Robert Sedgewick and Kevin Wayne](https://algs4.cs.princeton.edu/44sp/)
 
-3.  Price updates timelapses must be less or equal to time of exchange rate request. In prod this will be important for parallel updates, requests to graph. We'd have an array of timelapse projections for each edge. This also could be solved using noSQL DB Neo4j.
+3.  Price update timestamp must be max{less or equal to time} of exchange rate request. In prod this will be important for parallel updates, requests to graph. We can have a list of timelapse projections for each edge, simular to one how [RDBMS could use timelapses to provide isolation levels](https://en.wikipedia.org/wiki/Timestamp-based_concurrency_control). This also could be solved using noSQL DB Neo4j.
 
 ---
 
