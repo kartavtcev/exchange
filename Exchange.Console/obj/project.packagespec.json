@@ -1,0 +1,33 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
+    "projectName": "Exchange.Console",
+    "projectPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
+    "outputPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/obj/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {}
+      }
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "target": "Package",
+          "version": "2.0.0"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

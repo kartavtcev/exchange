@@ -3,7 +3,8 @@
 ## Design ideas
 
 + Programming language of choice is C# (aka sibling of C++ and Java), i'm most experienced with. (Rust looks like sibling of C++ and Scala with specific memory management)
-+ Platform of choice is .NET Core, its package manager nuget.org plays the role of crates.io. .NET Core runs on Windows, macOS, Linux, etc.
++ OS Ubuntu 17.10, IDE JetBrains Rider
++ Platform of choice is .NET Core 2.0, its package manager nuget.org plays the role of crates.io. .NET Core runs on Windows, macOS, Linux, etc.
 + Graph shortest path search algorithm choice:  
 
 1. Available [algs](https://cs.stackexchange.com/questions/2942/am-i-right-about-the-differences-between-floyd-warshall-dijkstra-and-bellman-fo) are of 2 categories: single source and all pairs. Dijkstra's & Bellman-Ford algs are SSSP. Floyd-Warshall is APSP. APSP would fit the case with rare/small price updates, making the graph nearly immutable aka cache. APSP algorihm would allow to calcullate all shortest path once and use for all (frequent) exchange rate requests for a period of time aka expiration time. In real-life case of larger number of price updates, i'd expect 'all pairs' to expire quickly. 
