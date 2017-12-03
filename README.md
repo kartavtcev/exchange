@@ -13,5 +13,7 @@ Dijkstra's alg implementation is based on my favourite Java OOP-style [Algorithm
 
 3.  Price update timestamp must be max{less or equal to time} of exchange rate request. In prod this will be important for parallel updates, requests to graph. We can have a list of timelapse projections for each edge, simular to one how [RDBMS could use timelapses to provide isolation levels](https://en.wikipedia.org/wiki/Timestamp-based_concurrency_control). This also could be solved using noSQL DB Neo4j. "Price updates are not guaranteed to arrive in chronological order." - looks like a characteristic of parallel.
 
++ Read-only log for legal compliance ???
+
 ---
 
