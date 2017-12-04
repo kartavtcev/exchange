@@ -38,8 +38,7 @@ namespace Exchange.Core.Algorithms.Graphs
             }
             return result;
         }
-
-
+        
         public IEnumerable<T> Vertexes()
         {
             return adjList.Keys;

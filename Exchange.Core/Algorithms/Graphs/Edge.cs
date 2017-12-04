@@ -7,7 +7,6 @@ namespace Exchange.Core.Algorithms.Graphs
         private T v;
         private T w;
         private double weight;
-        private IComparable<Edge<T>> _comparableImplementation;
 
         public Edge(T v, T w, double weight)
         {
