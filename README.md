@@ -14,7 +14,9 @@ Dijkstra's alg implementation is based on my favourite Java OOP-style [Algorithm
 
 3.  Price update timestamp must be max{less or equal to time} of exchange rate request. In prod this will be important for parallel updates, requests to graph. We can have a list of timelapse projections for each edge, simular to one how [RDBMS could use timelapses to provide isolation levels](https://en.wikipedia.org/wiki/Timestamp-based_concurrency_control). This also could be solved using noSQL DB Neo4j. "Price updates are not guaranteed to arrive in chronological order." - looks like a characteristic of parallel.
 
-+ Read-only log for legal compliance ???
+4. Many of existing graph data structures & algs implementation use (int key) for vertexes [incl. the above](https://algs4.cs.princeton.edu/44sp/). I'm faced with a choice: 1. use int vertexes in graph & have external hash table to map keys to ints vertexes and vice versa OR 2. use keys as suggested (exchange, currency). 1st pros are: able to move to production well-designed & tested official algs implementations covered with unit tests. 1st cons are: custom hash table can have collisions & resulting total number of graph int vertexes could be much bigger then real number of hashed keys. Since I'm porting Java to C# algs implementation anyway, I'd go the 2nd way & would plan to write some unit tests. 2nd way would also allow to implement the task using system / standard libs only, without attaching package managers with external libs/projects dependencies.
+
++ Read-only log of exchanges responses for legal compliance ???
 
 ---
 
