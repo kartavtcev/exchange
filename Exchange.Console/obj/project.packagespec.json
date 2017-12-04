@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
+    "projectUniqueName": "/home/sergei/RiderProjects/exchange/Exchange.Console/Exchange.Console.csproj",
     "projectName": "Exchange.Console",
-    "projectPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
-    "outputPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/obj/",
+    "projectPath": "/home/sergei/RiderProjects/exchange/Exchange.Console/Exchange.Console.csproj",
+    "outputPath": "/home/sergei/RiderProjects/exchange/Exchange.Console/obj/",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp2.0"

@@ -669,11 +669,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
+      "projectUniqueName": "/home/sergei/RiderProjects/exchange/Exchange.Console/Exchange.Console.csproj",
       "projectName": "Exchange.Console",
-      "projectPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/Exchange.Console.csproj",
+      "projectPath": "/home/sergei/RiderProjects/exchange/Exchange.Console/Exchange.Console.csproj",
       "packagesPath": "/home/sergei/.nuget/packages/",
-      "outputPath": "/home/sergei/RiderProjects/exchange/Exchange/Exchange.Console/obj/",
+      "outputPath": "/home/sergei/RiderProjects/exchange/Exchange.Console/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/sergei/.config/NuGet/NuGet.Config"
