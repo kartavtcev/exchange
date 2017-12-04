@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exchange.Console
+namespace Exchange.ConsoleUi
 {
     class Program
     {
