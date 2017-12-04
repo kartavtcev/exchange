@@ -1,49 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Exchange.Core.Algorithms.Graphs
 {
-    public class WeightedDiGraph
+    public class WeightedDiGraph<T> where T: IComparable<T>
     {
-        private int vertexCount;
-        private List<Edge>[] adjList;
+        private readonly Dictionary<T, List<Edge<T>>> adjList = new Dictionary<T, List<Edge<T>>>();
 
-        public WeightedDiGraph(int V)
+        public void AddEdge(Edge<T> e)
         {
-            vertexCount = V;
-            adjList = new List<Edge>[V];
-            for (var v = 0; v < V; ++v)
-            {
-                adjList[v] = new List<Edge>();
-            }
-        }
-
-        public void addEdge(Edge e)
-        {
-            var v = e.from();
-
+            var v = e.From();
+            if (!adjList.ContainsKey(v)) adjList.Add(v, new List<Edge<T>>());
             adjList[v].Add(e);
         }
 
-        public List<Edge> adj(int v)
+        public void AddVertex(T v)
+        {
+            if (!adjList.ContainsKey(v)) adjList.Add(v, new List<Edge<T>>());
+        }
+
+        public List<Edge<T>> Adj(T v)
         {
             return adjList[v];
         }
 
         public int V()
         {
-            return vertexCount;
+            return adjList.Keys.Count;
         }
 
-        public List<Edge> edges()
+        public IList<Edge<T>> Edges()
         {
-            var result = new List<Edge>();
-            for (var v = 0; v < vertexCount; ++v)
+            var result = new List<Edge<T>>();
+            foreach (var edges in adjList.Values)
             {
-                result.AddRange(adjList[v]);
+                result.AddRange(edges);
             }
             return result;
+        }
+
+
+        public IEnumerable<T> Vertexes()
+        {
+            return adjList.Keys;
         }
     }
 }

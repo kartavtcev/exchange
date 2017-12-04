@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Xml;
 using Exchange.Core.Algorithms.Graphs;
 using Exchange.Core.Algorithms.Queues;
 
 namespace Exchange.Core.Algorithms
 {
-    public class Dijkstra
+    public class Dijkstra<T> where T : IComparable<T>
     {
-        private int s;
+        private T s;
         private bool[] marked;
-        private Edge[] edgeTo;
+        private Edge<T>[] edgeTo;
         private double[] cost;
         private IndexMinPQ<Double> pq;
+        private List<T> vertexes;
 
-        public Dijkstra(WeightedDiGraph G, int s)
+        public Dijkstra(WeightedDiGraph<T> G, T s)
         {
             this.s = s;
             int V = G.V();
             marked = new bool[V];
-            edgeTo = new Edge[V];
+            edgeTo = new Edge<T>[V];
             cost = new double[V];
 
             for (var i = 0; i < V; ++i)
@@ -28,28 +27,29 @@ namespace Exchange.Core.Algorithms
                 cost[i] = Double.MaxValue;
             }
 
-            cost[s] = 0;
+            cost[this.vertexes.IndexOf(s)] = 0;
 
+            this.vertexes = new List<T>(G.Vertexes());
             pq = new IndexMinPQ<Double>(V);
 
 
-            pq.Insert(s, 0);
+            pq.Insert(this.vertexes.IndexOf(s), 0);
 
             while (!pq.IsEmpty)
             {
                 var v = pq.DelMin();
                 marked[v] = true;
-                foreach (var e in G.adj(v))
+                foreach (var e in G.Adj(this.vertexes[v]))
                 {
                     Relax(G, e);
                 }
             }
         }
 
-        private void Relax(WeightedDiGraph G, Edge e)
+        private void Relax(WeightedDiGraph<T> G, Edge<T> e)
         {
-            int v = e.from();
-            int w = e.to();
+            int v = this.vertexes.IndexOf(e.From());
+            int w = this.vertexes.IndexOf(e.To());
             if (cost[w] > cost[v] + e.Weight)
             {
                 cost[w] = cost[v] + e.Weight;
@@ -65,17 +65,17 @@ namespace Exchange.Core.Algorithms
             }
         }
 
-        public bool HasPathTo(int v)
+        public bool HasPathTo(T v)
         {
-            return marked[v];
+            return marked[this.vertexes.IndexOf(v)];
         }
 
-        public IEnumerable<Edge> PathTo(int v)
+        public IEnumerable<Edge<T>> PathTo(T v)
         {
-            var path = new List<Edge>();
-            for (var x = v; x != s; x = edgeTo[x].from())
+            var path = new List<Edge<T>>();
+            for (var x = v; x.CompareTo(s) != 0; x = edgeTo[this.vertexes.IndexOf(x)].From())
             {
-                path.Add(edgeTo[x]);
+                path.Add(edgeTo[this.vertexes.IndexOf(x)]);
             }
             path.Reverse();
             return path;

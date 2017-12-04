@@ -1,39 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Exchange.Core.Algorithms.Graphs
 {
-    public class Edge : IComparable<Edge>
+    public class Edge<T> : IComparable<Edge<T>> where T : IComparable<T>
     {
-        private int v;
-        private int w;
+        private T v;
+        private T w;
         private double weight;
-        private IComparable<Edge> _comparableImplementation;
+        private IComparable<Edge<T>> _comparableImplementation;
 
-        public Edge(int v, int w, double weight)
+        public Edge(T v, T w, double weight)
         {
             this.v = v;
             this.w = w;
             this.weight = weight;
         }
 
-        public int either()
+        public T Either()
         {
             return v;
         }
 
-        public int other(int v)
+        public T Other(T v)
         {
-            return this.v == v ? w : this.v;
+            return this.v.CompareTo(v) == 0 ? w : this.v;
         }
 
-        public int from()
+        public T From()
         {
             return v;
         }
 
-        public int to()
+        public T To()
         {
             return w;
         }
@@ -41,7 +39,7 @@ namespace Exchange.Core.Algorithms.Graphs
         public double Weight => weight;
 
 
-        public int CompareTo(Edge that)
+        public int CompareTo(Edge<T> that)
         {
             return weight.CompareTo(that.Weight);
         }
