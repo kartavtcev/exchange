@@ -3,7 +3,7 @@
 ## Design ideas
 
 + Programming language of choice is C# (aka sibling of C++ and Java), i'm most experienced with. (Rust looks like sibling of C++ and Scala with specific memory management)
-+ OS Ubuntu 17.10, IDE JetBrains Rider
++ OS Ubuntu 17.10, IDE JetBrains Rider, OS Windows 10, IDE Visual Studio.
 + Platform of choice is .NET Core 2.0, its package manager nuget.org plays the role of crates.io. .NET Core runs on Windows, macOS, Linux, etc.
 + Graph shortest path search algorithm choice:  
 
