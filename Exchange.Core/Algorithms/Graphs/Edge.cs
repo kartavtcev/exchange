@@ -45,7 +45,7 @@ namespace Exchange.Core.Algorithms.Graphs
 
         public override String ToString()
         {
-            return v + " =(" + weight + ")=> " + w;
+            return $"{v} -- {weight} --> {w}";
         }
     }
 }
