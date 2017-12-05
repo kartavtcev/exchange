@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Exchange.Core.Models
 {
@@ -23,6 +24,13 @@ namespace Exchange.Core.Models
                 && update.Factor != default(double);
         }
 
+        public static bool IsPriceUpdate(string line)
+        {
+            DateTime dateTime;
+            return !string.IsNullOrWhiteSpace(line)
+                && DateTime.TryParseExact(line.Split(' ')[0], "o", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+        }
+
         private static PriceUpdate Parse(string line)
         {
             if (line == null) return PriceUpdate.empty;
@@ -32,9 +40,12 @@ namespace Exchange.Core.Models
             {
                 try
                 {
+                    DateTime dateTime;
+                    DateTime.TryParseExact(splitted[0], "o", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+
                     var pu = new PriceUpdate
                     {
-                        Timestamp = DateTime.Parse(splitted[0]),
+                        Timestamp = dateTime,
                         Exchange = splitted[1],
                         SourceCurrency = splitted[2],
                         DestinationCurrency = splitted[3],
