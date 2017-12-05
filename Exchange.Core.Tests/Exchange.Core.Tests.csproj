@@ -14,4 +14,9 @@
     <ProjectReference Include="..\Exchange.Core\Exchange.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Algorithms\Graphs\" />
+    <Folder Include="Algorithms\Stack\" />
+  </ItemGroup>
+
 </Project>
