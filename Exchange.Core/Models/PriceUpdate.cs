@@ -11,7 +11,19 @@ namespace Exchange.Core.Models
         public string DestinationCurrency { get; set; }
         public double Factor { get; set; }
 
-        public PriceUpdate Parse(string line)
+        public static bool TryParse(string line, out PriceUpdate priceUpdate)
+        {
+            var update = Parse(line);
+            priceUpdate = update;
+
+            return update.Timestamp != default(DateTime)
+                && !string.IsNullOrWhiteSpace(update.Exchange)
+                && !string.IsNullOrWhiteSpace(update.SourceCurrency)
+                && !string.IsNullOrWhiteSpace(update.DestinationCurrency)
+                && update.Factor != default(double);
+        }
+
+        private static PriceUpdate Parse(string line)
         {
             if (line == null) return PriceUpdate.empty;
             var splitted = line.Split(' ');
@@ -36,16 +48,6 @@ namespace Exchange.Core.Models
                     return PriceUpdate.empty;
                 }
             }
-        }
-
-        public bool IsValid(string line)
-        {
-            var update = Parse(line);
-            return update.Timestamp != default(DateTime)
-                && !string.IsNullOrWhiteSpace(update.Exchange)
-                && !string.IsNullOrWhiteSpace(update.SourceCurrency)
-                && !string.IsNullOrWhiteSpace(update.DestinationCurrency)
-                && update.Factor != default(double);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Exchange.Core.Models
             if (other == null && this == null) return 0;
             if (other == null && this != null) return +1;
             if (other != null && this == null) return -1;
-            return Exchange.CompareTo(other.Exchange) * Currency.CompareTo(other.Currency);
+            return (Exchange + Currency).CompareTo(other.Exchange + other.Currency);
         }
 
         public override int GetHashCode()

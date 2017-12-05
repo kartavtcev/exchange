@@ -10,7 +10,27 @@ namespace Exchange.Core.Models
         public ExchangeCurrency Source { get; set; }
         public ExchangeCurrency Destination { get; set; }
 
-        public ExchangeRateRequest Parse(string line)
+        public static bool TryParse(string line, out ExchangeRateRequest exchangeRateRequest)
+        {
+            var request = Parse(line);
+            exchangeRateRequest = request;
+
+            return request.Source != null
+                && request.Destination != null
+                && !string.IsNullOrWhiteSpace(request.Source.Exchange)
+                && !string.IsNullOrWhiteSpace(request.Source.Currency)
+                && !string.IsNullOrWhiteSpace(request.Destination.Exchange)
+                && !string.IsNullOrWhiteSpace(request.Destination.Currency);
+        }
+
+        public static bool IsExchangeRateRequest(string line)
+        {
+            return !string.IsNullOrWhiteSpace(line) 
+                && line.Length > EXCHANGE_RATE_REQUEST.Length
+                && line.Substring(0, EXCHANGE_RATE_REQUEST.Length).Equals(EXCHANGE_RATE_REQUEST);
+        }
+
+        private static ExchangeRateRequest Parse(string line)
         {
             if (line == null) return ExchangeRateRequest.empty;
             if (!IsExchangeRateRequest(line)) return ExchangeRateRequest.empty;
@@ -43,24 +63,6 @@ namespace Exchange.Core.Models
                     return ExchangeRateRequest.empty;
                 }
             }
-        }
-
-        public bool IsValid(string line)
-        {
-            var request = Parse(line);
-            return request.Source != null
-                && request.Destination != null
-                && !string.IsNullOrWhiteSpace(request.Source.Exchange)
-                && !string.IsNullOrWhiteSpace(request.Source.Currency)
-                && !string.IsNullOrWhiteSpace(request.Destination.Exchange)
-                && !string.IsNullOrWhiteSpace(request.Destination.Currency);
-        }
-
-        public bool IsExchangeRateRequest(string line)
-        {
-            return !string.IsNullOrWhiteSpace(line) 
-                && line.Length > EXCHANGE_RATE_REQUEST.Length
-                && line.Substring(0, EXCHANGE_RATE_REQUEST.Length).Equals(EXCHANGE_RATE_REQUEST);
         }
     }
 }
