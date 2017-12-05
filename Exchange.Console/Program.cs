@@ -5,10 +5,11 @@ namespace Exchange.ConsoleUi
 {
     class Program
     {
-        private const string EnterInput = "Enter input:";
+        private const string EnterInput = "Enter 'exit' to exit. Enter input:";
         private const string Exit = "exit";
 
-        static void Main(string[] args)
+        //static void Main(string[] args)
+        static void Main()
         {
             while (true)
             {
