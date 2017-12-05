@@ -11,7 +11,7 @@
 
 (2. After substitution of min operator with max, and "+" with "*" Dijkstra will terminate, because exchange will only decrease the amount.)
 
-3. I propose to usd single source Bellman-Ford's alg. Its single source complexity (edge-weighted digraphs with negative cycle detection) is ***O(EV)*** worst case compared to Floyd-Warshall ***O(V^3)***.
+3. I propose to use single source Bellman-Ford's alg. Its single source complexity (edge-weighted digraphs with negative cycle detection) is ***O(EV)*** worst case compared to Floyd-Warshall ***O(V^3)***.
 Dijkstra's alg implementation is based on my favourite Java OOP-style [Algorithms, 4th Edition by Robert Sedgewick and Kevin Wayne](https://algs4.cs.princeton.edu/44sp/))
 
 (4.  Price update timestamp must be max{less or equal to time} of exchange rate request. In prod this will be important for parallel updates, requests to graph. We can have a list of timelapse projections for each edge, simular to one how [RDBMS could use timelapses to provide isolation levels](https://en.wikipedia.org/wiki/Timestamp-based_concurrency_control). This also could be solved using noSQL DB Neo4j. "Price updates are not guaranteed to arrive in chronological order." - looks like a characteristic of parallel.)

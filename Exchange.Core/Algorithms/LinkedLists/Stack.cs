@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Exchange.Core.Algorithms.Stack
+namespace Exchange.Core.Algorithms.LinkedLists
 {
     public class StackNode<T>
     {

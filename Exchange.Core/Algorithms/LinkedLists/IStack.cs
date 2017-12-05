@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Exchange.Core.Algorithms.Stack
+namespace Exchange.Core.Algorithms.LinkedLists
 {
     public interface IStack<T> : IEnumerable<T>
     {
