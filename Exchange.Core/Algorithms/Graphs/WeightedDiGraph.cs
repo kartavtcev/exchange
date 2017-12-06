@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Exchange.Core.Algorithms.Graphs
 {
@@ -12,6 +13,11 @@ namespace Exchange.Core.Algorithms.Graphs
             var v = e.From();
             if (!adjList.ContainsKey(v)) adjList.Add(v, new List<Edge<T>>());
             adjList[v].Add(e);
+        }
+
+        public bool HasEdgeBetween(T from, T to)
+        {
+            return adjList.ContainsKey(from) && adjList[from].Any(edge => edge.To().CompareTo(to) == 0);
         }
 
         public void RemoveEdge(Edge<T> e)

@@ -14,43 +14,43 @@ namespace Exchange.Core
         //private IList<string> exchanges = new List<string>();
         //private IList<string> currencies = new List<string>();
 
+
         public void PriceUpdate(PriceUpdate update)
         {
             lock (lockTheEntireGraph)
             {
-                //if (!exchanges.Contains(update.Exchange)) exchanges.Add(update.Exchange);
-                //if (!currencies.ContainsUP)
-
                 var from = new ExchangeCurrency(update.Exchange, update.SourceCurrency);
                 var to = new ExchangeCurrency(update.Exchange, update.DestinationCurrency);
                 var weight = -Math.Log(update.Factor);
 
-                // TODO:
-                // add edge or update based on timestamp
                 if (!graph.Vertexes().Contains(from)) graph.AddVertex(from);
                 if (!graph.Vertexes().Contains(to)) graph.AddVertex(to);
-                var oldEdge = graph.Adj(from).Where(e => e.To().Equals(to)).SingleOrDefault();
+                var oldEdge = graph.Adj(from).Where(e => e.To().CompareTo(to) == 0).SingleOrDefault();
                 var newEdge = new Edge<ExchangeCurrency>(from, to, weight, update.Timestamp);
                 if (oldEdge != null && oldEdge.TimeStamp < update.Timestamp)
                 {
                     graph.RemoveEdge(oldEdge);
                     graph.AddEdge(newEdge);
                 }
-                else if (oldEdge == null)
+                else if (oldEdge == null) // add 1<-->1 edges by currency
                 {
                     graph.AddEdge(newEdge);
+                    foreach (var v in graph.Vertexes()
+                        .Where(v => v.Currency == update.SourceCurrency)
+                        .Where(v => v.CompareTo(from) != 0))
+                    {
+                        if (!graph.HasEdgeBetween(v, from)) graph.AddEdge(new Edge<ExchangeCurrency>(v, from, -Math.Log(1)));
+                        if (!graph.HasEdgeBetween(from, v)) graph.AddEdge(new Edge<ExchangeCurrency>(from, v, -Math.Log(1)));
+                    }
+
+                    foreach (var v in graph.Vertexes()
+                        .Where(v => v.Currency == update.DestinationCurrency)
+                        .Where(v => v.CompareTo(to) != 0))
+                    {
+                        if (!graph.HasEdgeBetween(v, to)) graph.AddEdge(new Edge<ExchangeCurrency>(v, to, -Math.Log(1)));
+                        if (!graph.HasEdgeBetween(to, v)) graph.AddEdge(new Edge<ExchangeCurrency>(to, v, -Math.Log(1)));
+                    }
                 }
-
-                //graph.Edges().Where(e => e.From().Currency == update.DestinationCurrency);
-
-                // ONESSS 111111111
-                // add -Math.Log(1)
-
-                // add same currency 1 edges if not exist
-                
-
-                //graph.Edges
-                //var edge = Edge<>
             }
         }
 
