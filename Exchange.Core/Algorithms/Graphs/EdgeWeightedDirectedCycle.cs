@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Exchange.Core.Algorithms.Graphs;
 using Exchange.Core.Algorithms.LinkedLists;
 
-namespace Exchange.Core.Algorithms
+namespace Exchange.Core.Algorithms.Graphs
 {
     public class EdgeWeightedDirectedCycle<T> where T : IComparable<T>
     {

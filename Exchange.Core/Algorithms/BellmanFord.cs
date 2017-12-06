@@ -20,7 +20,7 @@ namespace Exchange.Core.Algorithms
             vertexes = new List<T>(G.Vertexes());
             foreach (var v in G.Vertexes())
             {
-                distTo[v] = double.MaxValue; // .MinValue
+                distTo[v] = double.MaxValue;
             }
             distTo[s] = 0.0;
 
