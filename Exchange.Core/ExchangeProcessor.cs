@@ -54,9 +54,9 @@ namespace Exchange.Core
             }
         }
 
-
         public ExchangeRateResponse ExchangeRate(ExchangeRateRequest request)
         {
+            
             throw new NotImplementedException();
         }
         
