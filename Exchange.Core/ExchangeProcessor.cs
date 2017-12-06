@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Exchange.Core.Algorithms.Graphs;
 using Exchange.Core.Models;
+using Exchange.Core.Algorithms;
 
 namespace Exchange.Core
 {
@@ -21,7 +22,7 @@ namespace Exchange.Core
             {
                 var from = new ExchangeCurrency(update.Exchange, update.SourceCurrency);
                 var to = new ExchangeCurrency(update.Exchange, update.DestinationCurrency);
-                var weight = -Math.Log(update.Factor);
+                double weight = -Math.Log(update.Factor);
 
                 if (!graph.Vertexes().Contains(from)) graph.AddVertex(from);
                 if (!graph.Vertexes().Contains(to)) graph.AddVertex(to);
@@ -56,8 +57,23 @@ namespace Exchange.Core
 
         public ExchangeRateResponse ExchangeRate(ExchangeRateRequest request)
         {
-            
-            throw new NotImplementedException();
+            lock (lockTheEntireGraph)
+            {
+                var spt = new BellmanFord<ExchangeCurrency>(graph, request.Source);
+                if (spt.HasNegativeCycle()) return null; // TODO: negative cycle ==> arbitrage opportunity
+                if (spt.HasPathTo(request.Destination))
+                {
+                    var path = spt.PathTo(request.Destination);
+                    var vertexesOnPath = new List<ExchangeCurrency>();
+                    if (path.Count() >= 1) vertexesOnPath.Add(path.First().From());
+                    foreach (var edge in path) vertexesOnPath.Add(edge.To());
+                    double rate = 1;
+                    foreach (var edge in path) rate *= Math.Exp(-edge.Weight);
+                    var response = new ExchangeRateResponse(request.Source, request.Destination, rate, vertexesOnPath);
+                    return response;
+                }
+                return null;
+            }
         }
         
     }
