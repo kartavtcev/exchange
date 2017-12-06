@@ -8,6 +8,13 @@ namespace Exchange.Core.Algorithms.Graphs
         private T w;
         private double weight;
 
+        public DateTime TimeStamp { get; set; }
+
+        public Edge(T v, T w, double weight, DateTime timeStamp) : this(v, w, weight)
+        {
+            TimeStamp = timeStamp;
+        }
+
         public Edge(T v, T w, double weight)
         {
             this.v = v;

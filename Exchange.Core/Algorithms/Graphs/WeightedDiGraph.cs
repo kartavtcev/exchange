@@ -14,10 +14,17 @@ namespace Exchange.Core.Algorithms.Graphs
             adjList[v].Add(e);
         }
 
+        public void RemoveEdge(Edge<T> e)
+        {
+            var v = e.From();
+            if (adjList.ContainsKey(v) && adjList[v].Contains(e)) adjList[v].Remove(e);
+        }
+
         public void AddVertex(T v)
         {
             if (!adjList.ContainsKey(v)) adjList.Add(v, new List<Edge<T>>());
         }
+
 
         public List<Edge<T>> Adj(T v)
         {
