@@ -57,7 +57,7 @@ namespace Exchange.Core.Algorithms
             }
         }
 
-        private bool HasNegativeCycle() { return cycle != null; }
+        public bool HasNegativeCycle() { return cycle != null; }
 
         public IEnumerable<Edge<T>> NegativeCycle()
         {
