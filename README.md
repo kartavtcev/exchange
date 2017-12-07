@@ -14,7 +14,7 @@
 3. What is substitution: min->max, + -> * and how it's legal?   
 min -> max(-1*) : In order to get minimum number, we can negate maximum number.   
 + -> * : it's a result of applying ln to edge weight, then during calcullation sum of path it'd become:  
-weight = -ln(rate)  <-- (because of this, summation of edge's costs/weights, would be multiplication, (since ln,exp are monotonic increasing funcs))  
+weight = -ln(rate)  <-- (because of this, summation of edge's costs/weights, would be multiplication for original problem, (since ln,exp are monotonic increasing funcs))  
 path*= exp(-weight)  
 I don't like the idea of modifying original alg. There's a rule to move in production only official, battle-tested algs. The risk of error increases (at least because each classical alg has formal corectness math prove; worst-case time, space costs) => "Substitution" step will be outside of Bellman-Ford.   
 

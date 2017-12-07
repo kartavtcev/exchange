@@ -36,9 +36,7 @@ namespace Exchange.Core.Models
             sb.Append(BestRatesBegin);
             sb.Append($" {Source.Exchange} {Source.Currency} {Destination.Exchange} {Destination.Currency} ");
             sb.AppendFormat($"{Rate} \n", Environment.NewLine);
-            //sb.AppendFormat($"{Source.Exchange}, {Source.Currency} \n", Environment.NewLine);
             foreach (var v in Path) sb.AppendFormat($"{v.Exchange}, {v.Currency} \n", Environment.NewLine);
-            //sb.AppendFormat($"{Destination.Exchange}, {Destination.Currency} \n", Environment.NewLine);
             sb.Append(BestRatesEnd);
             return sb.ToString();
         }
