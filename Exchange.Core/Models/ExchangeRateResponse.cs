@@ -21,7 +21,12 @@ namespace Exchange.Core.Models
         public ExchangeCurrency Source { get; set; }
         public ExchangeCurrency Destination { get; set; }
 
-        public double Rate { get; set; }
+        private double _rate;
+        public double Rate
+        {
+            get { return _rate; }
+            set { _rate = Math.Round(value, 5, MidpointRounding.AwayFromZero); }
+        }
 
         public IList<ExchangeCurrency> Path { get; set; }
 

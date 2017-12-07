@@ -10,7 +10,7 @@ namespace Exchange.Core.Models
         public string Exchange { get; set; }
         public string SourceCurrency { get; set; }
         public string DestinationCurrency { get; set; }
-        public double Factor { get; set; } // decimal, not double, because we're dealing with money
+        public double Factor { get; set; }
 
         public static bool TryParse(string line, out PriceUpdate priceUpdate)
         {
