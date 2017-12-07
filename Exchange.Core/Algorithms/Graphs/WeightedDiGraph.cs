@@ -10,11 +10,9 @@ namespace Exchange.Core.Algorithms.Graphs
 
         public void AddEdge(Edge<T> e)
         {
-            var v = e.From();
-            var vv = e.To();
-            AddVertex(v);
-            AddVertex(vv);
-            adjList[v].Add(e);
+            AddVertex(e.From());
+            AddVertex(e.To());
+            adjList[e.From()].Add(e);
         }
 
         public bool HasEdgeBetween(T from, T to)

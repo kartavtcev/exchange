@@ -3,7 +3,7 @@
 ## Design ideas
 
 + Programming language of choice is C# (aka sibling of C++ and Java), i'm most experienced with & many classical algorithms (incl. graph shortest path) fit fine OOP languages with mutable state. (Rust looks like sibling of C++ and Scala with specific memory management)
-+ OS Windows 10, IDE Visual Studio Community 2017 (free), IDE Visual Studio Pro 2017 (trial); OS Ubuntu 17.10, IDE JetBrains Rider (trial).
++ OS Windows 10, IDE Visual Studio Community 2017 (free) - recommended, IDE Visual Studio Pro 2017 (trial); OS Ubuntu 17.10, IDE JetBrains Rider (trial).
 + Platform of choice is .NET Core 2.0, its package manager nuget.org plays the role of crates.io. .NET Core runs on Windows, macOS, Linux, etc.
 + Graph shortest path search algorithm choice:  
 
@@ -25,4 +25,3 @@ I don't like the idea of modifying original alg. There's a rule to move in produ
 + Read-only log of exchanges responses for legal compliance ??? Will skip IoC(DI), logging for this demo.
 
 ---
-
