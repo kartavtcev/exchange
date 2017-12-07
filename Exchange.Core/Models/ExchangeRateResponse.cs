@@ -27,15 +27,13 @@ namespace Exchange.Core.Models
 
         public override string ToString()
         {
-            var start = $" {Source.Exchange} {Source.Currency} {Destination.Exchange} {Destination.Currency} ";
             var sb = new StringBuilder();
             sb.Append(BestRatesBegin);
-            sb.Append(start);
-            sb.Append(Rate);
-            sb.Append(Environment.NewLine);
-            sb.AppendFormat($"{Source.Exchange}, {Source.Currency}", Environment.NewLine);
-            foreach (var v in Path) sb.AppendFormat($"{v.Exchange}, {v.Currency}", Environment.NewLine);
-            sb.AppendFormat($"{Destination.Exchange}, {Destination.Currency}", Environment.NewLine);
+            sb.Append($" {Source.Exchange} {Source.Currency} {Destination.Exchange} {Destination.Currency} ");
+            sb.AppendFormat($"{Rate} \n", Environment.NewLine);
+            //sb.AppendFormat($"{Source.Exchange}, {Source.Currency} \n", Environment.NewLine);
+            foreach (var v in Path) sb.AppendFormat($"{v.Exchange}, {v.Currency} \n", Environment.NewLine);
+            //sb.AppendFormat($"{Destination.Exchange}, {Destination.Currency} \n", Environment.NewLine);
             sb.Append(BestRatesEnd);
             return sb.ToString();
         }

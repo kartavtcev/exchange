@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Exchange.Core.Algorithms.Graphs;
 using Exchange.Core.Models;
 using Exchange.Core.Algorithms;
@@ -12,9 +11,6 @@ namespace Exchange.Core
     {
         private readonly WeightedDiGraph<ExchangeCurrency> graph = new WeightedDiGraph<ExchangeCurrency>();
         private static readonly Object lockTheEntireGraph = new Object();
-        //private IList<string> exchanges = new List<string>();
-        //private IList<string> currencies = new List<string>();
-
 
         public void PriceUpdate(PriceUpdate update)
         {
