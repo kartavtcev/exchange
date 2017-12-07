@@ -11,7 +11,9 @@ namespace Exchange.Core.Algorithms.Graphs
         public void AddEdge(Edge<T> e)
         {
             var v = e.From();
-            if (!adjList.ContainsKey(v)) adjList.Add(v, new List<Edge<T>>());
+            var vv = e.To();
+            AddVertex(v);
+            AddVertex(vv);
             adjList[v].Add(e);
         }
 

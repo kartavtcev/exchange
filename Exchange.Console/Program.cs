@@ -6,7 +6,7 @@ namespace Exchange.ConsoleUi
 {
     class Program
     {
-        private const string EnterInput = "Enter 'exit' to exit. Enter input:";
+        private const string EnterInput = "Enter input text, 'exit' to exit:";
         private const string Exit = "exit";
 
         //static void Main(string[] args)
@@ -26,7 +26,14 @@ namespace Exchange.ConsoleUi
                     if (ExchangeRateRequest.TryParse(line, out exchangerr))
                     {
                         var response = processor.ExchangeRate(exchangerr);
-                        Console.WriteLine(response);
+                        if (response != null)
+                        {
+                            Console.WriteLine(response);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NO PATH: s<-->d vertexes are not connected OR infinite positive cycle is detected");
+                        }
                     }
                 }
                 if (PriceUpdate.IsPriceUpdate(line))

@@ -3,7 +3,7 @@
 ## Design ideas
 
 + Programming language of choice is C# (aka sibling of C++ and Java), i'm most experienced with & many classical algorithms (incl. graph shortest path) fit fine OOP languages with mutable state. (Rust looks like sibling of C++ and Scala with specific memory management)
-+ OS Windows 10, IDE Visual Studio; OS Ubuntu 17.10, IDE JetBrains Rider.
++ OS Windows 10, IDE Visual Studio Pro 2017, IDE Visual Studio Community 2017 (free); OS Ubuntu 17.10, IDE JetBrains Rider.
 + Platform of choice is .NET Core 2.0, its package manager nuget.org plays the role of crates.io. .NET Core runs on Windows, macOS, Linux, etc.
 + Graph shortest path search algorithm choice:  
 
@@ -18,7 +18,7 @@ weight = -ln(rate)  <-- (because of this, summation of edge's costs/weights, wou
 path*= exp(-weight)  
 I don't like the idea of modifying original alg. There's a rule to move in production only official, battle-tested algs. The risk of error increases (at least because each classical alg has formal corectness math prove; worst-case time, space costs) => "Substitution" step will be outside of Bellman-Ford.   
 
-BTW, because I use loge, exp funcs, I have to use Double float type, instead of Decimal which is recomended for money for its precision. I'd round it to 5 decimal places.
++ BTW, because I use loge, exp funcs, I have to use Double float type, instead of Decimal which is recomended for money for its precision. I'd round it to 5 decimal places.
 
 (4.  Price update timestamp must be max{less or equal to time} of exchange rate request. In prod this will be important for parallel updates, requests to graph. We could have had a list of timelapse projections for each edge, simular to one how [RDBMS could use timelapses to provide isolation levels](https://en.wikipedia.org/wiki/Timestamp-based_concurrency_control). This also could be solved using noSQL DB Neo4j. But keep in mind, storing graph in RAM would speedup things compared to hard drive. "Price updates are not guaranteed to arrive in chronological order." - looks like a characteristic of parallel.) But probably it's an overhead for the demo. Let's just store the most recent price by date time. To prevent parallel access to graph, wrapper would be introduced to lock entire graph on each operation. This later could be updated to {edge + from, to 2 vertexes} lock.  
 

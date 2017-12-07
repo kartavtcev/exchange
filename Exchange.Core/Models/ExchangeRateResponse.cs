@@ -8,7 +8,7 @@ namespace Exchange.Core.Models
     {
         const string BestRatesBegin = "BEST_RATES_BEGIN";
         const string BestRatesEnd = "BEST_RATES_END";
-        const string Ws = " ";
+        const string NewLine = "\n";
 
         public ExchangeRateResponse(ExchangeCurrency source, ExchangeCurrency destination, double rate, IEnumerable<ExchangeCurrency> path)
         {
@@ -35,8 +35,8 @@ namespace Exchange.Core.Models
             var sb = new StringBuilder();
             sb.Append(BestRatesBegin);
             sb.Append($" {Source.Exchange} {Source.Currency} {Destination.Exchange} {Destination.Currency} ");
-            sb.AppendFormat($"{Rate} \n", Environment.NewLine);
-            foreach (var v in Path) sb.AppendFormat($"{v.Exchange}, {v.Currency} \n", Environment.NewLine);
+            sb.Append($"{Rate} {NewLine}");
+            foreach (var v in Path) sb.Append($"{v.Exchange}, {v.Currency} {NewLine}");
             sb.Append(BestRatesEnd);
             return sb.ToString();
         }
