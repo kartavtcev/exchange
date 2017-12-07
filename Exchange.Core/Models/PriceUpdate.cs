@@ -41,7 +41,8 @@ namespace Exchange.Core.Models
                 try
                 {
                     DateTime dateTime;
-                    DateTime.TryParseExact(splitted[0], "o", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+                    //DateTime.TryParseExact(splitted[0], "o", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+                    DateTime.TryParse(splitted[0], out dateTime);
 
                     var pu = new PriceUpdate
                     {

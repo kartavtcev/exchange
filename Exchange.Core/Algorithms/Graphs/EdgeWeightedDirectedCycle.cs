@@ -13,7 +13,12 @@ namespace Exchange.Core.Algorithms.Graphs
 
         public EdgeWeightedDirectedCycle(WeightedDiGraph<T> G)
         {
-            foreach (var v in G.Vertexes())
+            var vertexes = new List<T>(G.Vertexes());
+            foreach (var v in vertexes) marked.Add(v, false);
+            foreach (var v in vertexes) edgeTo.Add(v, null);
+            foreach (var v in vertexes) onStack.Add(v, false);
+
+            foreach (var v in vertexes)
             {
                 if (!marked[v]) Dfs(G, v);
             }
@@ -26,6 +31,7 @@ namespace Exchange.Core.Algorithms.Graphs
             foreach (var e in G.Adj(v))
             {
                 T w = e.To();
+                if (!marked.ContainsKey(w)) marked.Add(w, false); // fix to dictionary exception
                 if (cycle != null) return; // if directed cycle found
                 else if (!marked[w])
                 {

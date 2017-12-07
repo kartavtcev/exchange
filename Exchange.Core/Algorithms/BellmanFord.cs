@@ -13,15 +13,17 @@ namespace Exchange.Core.Algorithms
         private IList<T> vertexes;
         private IQueue<T> queue = new QueueLinkedList<T>();
         private int cost; // number of calls to relax()
-        private IEnumerable<Edge<T>> cycle;        
+        private IEnumerable<Edge<T>> cycle;
+        private T s;
 
         public BellmanFord(WeightedDiGraph<T> G, T s)
         {
+            this.s = s;
             vertexes = new List<T>(G.Vertexes());
-            foreach (var v in G.Vertexes())
-            {
-                distTo[v] = double.MaxValue;
-            }
+            foreach (var v in vertexes) distTo.Add(v, double.MaxValue);
+            foreach (var v in vertexes) edgeTo.Add(v, null);
+            foreach (var v in vertexes) onQueue.Add(v, false);
+
             distTo[s] = 0.0;
 
             queue.Enqueue(s);
@@ -69,7 +71,7 @@ namespace Exchange.Core.Algorithms
             var spt = new WeightedDiGraph<T>();
             foreach (var e in edgeTo.Values)
             {
-                spt.AddEdge(e);
+                if(e != null) spt.AddEdge(e);
             }
             var finder = new EdgeWeightedDirectedCycle<T>(spt);
             cycle = finder.Cycle();
@@ -94,6 +96,10 @@ namespace Exchange.Core.Algorithms
             if (HasNegativeCycle()) throw new Exception("Negative cost cycle exists");
             if (!HasPathTo(v)) return null;
             var path = new StackLinkedList<Edge<T>>();
+            //for (var x = v; x.CompareTo(s) != 0; x = edgeTo[x].Other(x))
+            //{
+            //    path.Push(edgeTo[x]);
+            //}
             for (var e = edgeTo[v]; e != null; e = edgeTo[e.From()])
             {
                 path.Push(e);

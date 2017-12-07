@@ -34,7 +34,12 @@ namespace Exchange.Core.Algorithms.Graphs
 
         public List<Edge<T>> Adj(T v)
         {
-            return adjList[v];
+            if (adjList.ContainsKey(v)) return adjList[v];
+            else
+            {
+                adjList.Add(v, new List<Edge<T>>());
+                return adjList[v];
+            }
         }
 
         public int V()

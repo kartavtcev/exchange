@@ -60,7 +60,11 @@ namespace Exchange.Core
             lock (lockTheEntireGraph)
             {
                 var spt = new BellmanFord<ExchangeCurrency>(graph, request.Source);
-                if (spt.HasNegativeCycle()) return null; // TODO: negative cycle ==> arbitrage opportunity
+                if (spt.HasNegativeCycle())
+                {
+                    var cycle = spt.NegativeCycle();
+                    return null;
+                }// TODO: negative cycle ==> arbitrage opportunity
                 if (spt.HasPathTo(request.Destination))
                 {
                     var path = spt.PathTo(request.Destination);
