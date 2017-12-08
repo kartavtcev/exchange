@@ -18,6 +18,8 @@ namespace Exchange.Core.Models
             this.Path = new List<ExchangeCurrency>(path);
         }
 
+        public ExchangeRateResponse() {}
+
         public ExchangeCurrency Source { get; set; }
         public ExchangeCurrency Destination { get; set; }
 
@@ -29,6 +31,10 @@ namespace Exchange.Core.Models
         }
 
         public IList<ExchangeCurrency> Path { get; set; }
+        public IList<ExchangeCurrency> Cycle { get; set; }
+
+        public bool IsCycle { get; set; }
+        public bool IsHasPath { get; set; }
 
         public override string ToString()
         {

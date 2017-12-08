@@ -26,13 +26,17 @@ namespace Exchange.ConsoleUi
                     if (ExchangeRateRequest.TryParse(line, out exchangerr))
                     {
                         var response = processor.ExchangeRate(exchangerr);
-                        if (response != null)
+                        if (response.IsHasPath)
                         {
                             Console.WriteLine(response);
                         }
-                        else
+                        else if (!response.IsHasPath)
                         {
-                            Console.WriteLine("NO PATH: s<-->d vertexes are not connected OR infinite positive cycle is detected");
+                            Console.WriteLine("No path.");
+                        }
+                        else if (response.IsCycle)
+                        {
+                            Console.WriteLine("Infinite positive cycle was found. Arbitrage.");
                         }
                     }
                 }

@@ -53,26 +53,48 @@ namespace Exchange.Core
         {
             lock (lockTheEntireGraph)
             {
+                var response = new ExchangeRateResponse();
+
                 var spt = new BellmanFord<ExchangeCurrency>(graph, request.Source);
                 if (spt.HasNegativeCycle())
                 {
+                    response.IsCycle = true;
+
                     var cycle = spt.NegativeCycle();
-                    return null;
-                }// TODO: negative cycle ==> arbitrage opportunity
+                    response.Cycle = EdgesToVertexes(cycle);
+                    return response; // TODO: negative cycle ==> arbitrage opportunity
+                }
                 if (spt.HasPathTo(request.Destination))
                 {
+                    response.IsHasPath = true;
+
                     var path = spt.PathTo(request.Destination);
-                    var vertexesOnPath = new List<ExchangeCurrency>();
-                    if (path.Count() >= 1) vertexesOnPath.Add(path.First().From());
-                    foreach (var edge in path) vertexesOnPath.Add(edge.To());
+                    var vertexesOnPath = EdgesToVertexes(path);
                     double rate = 1;
                     foreach (var edge in path) rate *= Math.Exp(-edge.Weight);
-                    var response = new ExchangeRateResponse(request.Source, request.Destination, rate, vertexesOnPath);
+
+                    response.Source = request.Source;
+                    response.Destination = request.Destination;
+                    response.Rate = rate;
+                    response.Path = vertexesOnPath;
                     return response;
                 }
-                return null;
+                if (!spt.HasPathTo(request.Destination))
+                {
+                    response.IsHasPath = false;
+                    return response;
+                }
+
+                throw new NotImplementedException();
             }
         }
-        
+
+        private IList<ExchangeCurrency> EdgesToVertexes(IEnumerable<Edge<ExchangeCurrency>> edges)
+        {
+            var vertexes = new List<ExchangeCurrency>();
+            if (edges != null && edges.Count() >= 1) vertexes.Add(edges.First().From());
+            foreach (var edge in edges) vertexes.Add(edge.To());
+            return vertexes;
+        }
     }
 }
