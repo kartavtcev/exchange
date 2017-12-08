@@ -27,7 +27,7 @@ namespace Exchange.ConsoleUi
                         var response = processor.ExchangeRate(exchangerr);
                         if (response.IsCycle)
                         {
-                            Console.WriteLine("Infinite positive cycle was found. Arbitrage.");
+                            Console.WriteLine("Infinite cycle was found. Arbitrage.");
                         }
                         else if (response.IsHasPath)
                         {

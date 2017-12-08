@@ -62,7 +62,7 @@ namespace Exchange.Core
 
                     var cycle = spt.NegativeCycle();
                     response.Cycle = EdgesToVertexes(cycle);
-                    return response; // TODO: negative cycle ==> arbitrage opportunity
+                    return response; // TODO: cycle ==> arbitrage opportunity
                 }
                 if (spt.HasPathTo(request.Destination))
                 {
