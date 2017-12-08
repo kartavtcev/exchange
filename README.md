@@ -23,6 +23,6 @@ Store the most recent price by date time. To prevent parallel access to graph, w
 
 + Read-only log of exchanges responses for legal compliance ??? Will skip IoC(DI), logging for this demo.
 
-+ ***TODO:*** So far if cycle/arbitrage is found in the graph, no path would be returned. To solve this, will need to go 1 by 1 deleting cycle edges {with recursion until path not found} and then return the path found or move to next edge.
++ ***TODO:*** So far if cycle/arbitrage is found in the graph, no path would be returned. To solve this, will need to go 1 by 1 trying to delete cycle edges {with recursion until path not found} and then return the path found or move to next edge.
 
 ---
