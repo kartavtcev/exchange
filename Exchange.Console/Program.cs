@@ -17,7 +17,7 @@ namespace Exchange.ConsoleUi
             {
                 Console.WriteLine(EnterInput);
                 string line = Console.ReadLine();
-                if (line == Exit) break;
+                if (String.Equals(line, Exit, StringComparison.InvariantCultureIgnoreCase)) break;
 
                 if (ExchangeRateRequest.IsExchangeRateRequest(line))
                 {
