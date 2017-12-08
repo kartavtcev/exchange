@@ -9,7 +9,6 @@ namespace Exchange.ConsoleUi
         private const string EnterInput = "Enter input text, 'exit' to exit:";
         private const string Exit = "exit";
 
-        //static void Main(string[] args)
         static void Main()
         {
             var processor = new ExchangeProcessor();
@@ -26,17 +25,17 @@ namespace Exchange.ConsoleUi
                     if (ExchangeRateRequest.TryParse(line, out exchangerr))
                     {
                         var response = processor.ExchangeRate(exchangerr);
-                        if (response.IsHasPath)
+                        if (response.IsCycle)
+                        {
+                            Console.WriteLine("Infinite positive cycle was found. Arbitrage.");
+                        }
+                        else if (response.IsHasPath)
                         {
                             Console.WriteLine(response);
                         }
                         else if (!response.IsHasPath)
                         {
                             Console.WriteLine("No path.");
-                        }
-                        else if (response.IsCycle)
-                        {
-                            Console.WriteLine("Infinite positive cycle was found. Arbitrage.");
                         }
                     }
                 }
