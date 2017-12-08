@@ -11,7 +11,7 @@ namespace Exchange.Core
     {
         private readonly WeightedDiGraph<ExchangeCurrency> graph = new WeightedDiGraph<ExchangeCurrency>();
         private static readonly Object lockTheEntireGraph = new Object();
-
+        
         public void PriceUpdate(PriceUpdate update)
         {
             lock (lockTheEntireGraph)
@@ -20,8 +20,6 @@ namespace Exchange.Core
                 var to = new ExchangeCurrency(update.Exchange, update.DestinationCurrency);
                 double weight = -Math.Log(update.Factor);
 
-                //if (!graph.Vertexes().Contains(from)) graph.AddVertex(from);
-                //if (!graph.Vertexes().Contains(to)) graph.AddVertex(to);
                 var oldEdge = graph.Adj(from).Where(e => e.To().CompareTo(to) == 0).SingleOrDefault();
                 var newEdge = new Edge<ExchangeCurrency>(from, to, weight, update.Timestamp);
                 if (oldEdge != null && oldEdge.TimeStamp < update.Timestamp)
