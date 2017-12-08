@@ -18,8 +18,7 @@ weight = -ln(rate)  <-- (because of this, summation of edge's costs/weights, wou
 path*= exp(-weight)  
 I don't like the idea of modifying original alg. There's a rule to move in production only official, battle-tested algs. The risk of error increases (at least because each classical alg has formal corectness math prove; worst-case time, space costs) => "substitution" step will be outside of Bellman-Ford.   
 
-+ BTW, because I use log{e}(), exp() funcs, I have to use Double float type, instead of Decimal which is recomended for money for its precision. I'd round it to 5 decimal places.   
-
++ BTW, because I use log{e}(), exp() funcs, I have to use Double float type, instead of Decimal which is recomended for money for its precision. I'd round it to 5 decimal places.
 Store the most recent price by date time. To prevent parallel access to graph, wrapper would be introduced to lock entire graph on each operation. This later could be updated to {edge + from, to 2 vertexes} lock.  
 
 + Read-only log of exchanges responses for legal compliance ??? Will skip IoC(DI), logging for this demo.
