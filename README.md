@@ -1,4 +1,4 @@
-# TenX - Technical Exercise
+# Technical Exercise
 
 ## Design ideas
 
